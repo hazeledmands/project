@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+# version 0.0.1
+
+set -e
+
+fullpath=$1
+repo=$(echo $fullpath | tr "/" "\n" | tail -1)
+
+cd $PROJECTS
+
+if [ -d "$repo" ]; then
+  true
+  # do nothing
+elif hub clone $fullpath 2>/dev/null; then
+  true
+  # do nothing
+else
+  mkdir $repo
+  cd $repo
+  hub init
+  hub create $* || true
+fi
+
+if [ -f $HOME/.project/post-all ]; then
+  source $HOME/.project/post-all
+fi
