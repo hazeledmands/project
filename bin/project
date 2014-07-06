@@ -3,22 +3,34 @@
 
 set -e
 
+remote=true
+OPTIND=0
+while getopts "l" opt; do
+  case $opt in
+    l)
+      remote=false
+      ;;
+  esac
+done
+readonly remote
+shift "$((OPTIND-1))"
+
 fullpath=$1
 repo=$(echo $fullpath | tr "/" "\n" | tail -1)
 
 cd $PROJECTS
 
-if [ -d "$repo" ]; then
+if [[ -d "$repo" ]]; then
   true
   # do nothing
-elif hub clone $fullpath 2>/dev/null; then
+elif $remote && hub clone $fullpath 2>/dev/null; then
   true
   # do nothing
 else
   mkdir $repo
   cd $repo
   hub init
-  hub create $* || true
+  $remote && hub create $* || true
 fi
 
 if [ -f $HOME/.project/post-all ]; then
