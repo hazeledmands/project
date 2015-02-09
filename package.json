@@ -1,0 +1,31 @@
+{
+  "name": "project",
+  "version": "1.0.0",
+  "description": "A git project directory tool",
+  "main": "index.js",
+  "scripts": {
+    "test": "faucet test/*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/demands/project.git"
+  },
+  "bin": {
+    "project": "./bin/project"
+  },
+  "keywords": [
+    "project"
+  ],
+  "author": "Max Edmands",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/demands/project/issues"
+  },
+  "homepage": "https://github.com/demands/project",
+  "devDependencies": {
+    "faucet": "0.0.1",
+    "nixt": "^0.4.1",
+    "npm-path": "^1.0.1",
+    "tape": "^3.5.0"
+  }
+}
